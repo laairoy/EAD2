@@ -30,3 +30,18 @@ ABP * buscar_hash(HASH *hash, int chave)
 	ABP * abp = buscar_chave_abp(chave, hash->node[fx]);
 
 }
+
+ unsigned int totalColisoes(TNoArvore *tabelaHash[], int M)
+ {
+ 	int total = 0;
+ 	for(int i = 0; i < M; i++)
+ 		total += colisoes_arvore(tabelaHash[i], 0);
+
+ 	return total;
+ }
+
+ int colisoes_arvore(TNoArvore *abp, int x)
+ {
+ 	if(!abp) return 0;
+ 	return x + colisoes_arvore(abp->dir, x + 1) + colisoes_arvore(abp->esq, x + 1); 
+ }

@@ -11,6 +11,8 @@ int main()
 	inserir_chave(5, &avl);
 	inserir_chave(6, &avl);
 	inserir_chave(7, &avl);
+	inserir_chave(8, &avl);
+	inserir_chave(9, &avl);
 	em_ordem_avl(avl);
 	int h = altura_avl(avl);
 	printf("\n%d\n", avl->chave);

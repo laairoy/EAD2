@@ -98,7 +98,7 @@ void em_ordem_avl(AVL *avl)
 {
 	if(!avl) return;
 	em_ordem_avl(avl->esq);
-	printf("%d ", avl->chave);
+	printf("chave = %d, FB = %d\n", avl->chave, avl->fb);
 	em_ordem_avl(avl->dir);
 }
 
