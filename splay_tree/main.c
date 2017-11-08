@@ -4,9 +4,11 @@
 int main()
 {
    S_TREE *raiz = NULL;
-   inserir(&raiz, 5);
+   inserir(NULL, &raiz, NULL, 5);
    printf("raiz agor é: %d\n", raiz->chave);
-   inserir(&raiz, 6);
+   raiz = inserir(NULL, &raiz, NULL, 6);
+   printf("raiz agor é: %d\n", raiz->chave);
+   inserir(NULL, &raiz, NULL, 3);
    printf("raiz agor é: %d\n", raiz->chave);
    return 0;
 }
