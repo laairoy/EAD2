@@ -15,7 +15,36 @@ S_TREE * criar_no(int chave)
    return novoNo;
 }
 
-S_TREE * inserir(S_TREE **raiz, int chave);
+S_TREE * inserir(S_TREE **raiz, int chave)
+{
+   assert(raiz);
+   
+   if(!(*raiz))
+   {
+      *raiz = criar_no(chave);
+      return *raiz;
+   }
+   if((*raiz)->chave == chave) return *raiz;
+   
+   //esquerda
+   if(chave < (*raiz)->chave)
+   {
+      if((*raiz)->esq == NULL)
+      {
+         inserir(&((*raiz)->esq), chave);
+         rotacionar_dir(raiz);
+      }
+   } 
+   else
+   {
+      if((*raiz)->dir == NULL)
+      {
+         inserir(&((*raiz)->dir), chave);
+         rotacionar_esq(raiz);
+      }
+   }
+   return *raiz;
+}
 
 S_TREE * buscar_no(S_TREE **raiz, int chave);
 
@@ -36,4 +65,18 @@ void rotacionar_dir(S_TREE **raiz)
    (*raiz)->dir = auxNo;
 }
 
-void rotacionar_esq(S_TREE **raiz);
+// o procedimento verifica se a raiz e valida
+// o auxiliar recebe o raiz
+// o filho direito se torna o novo raiz
+// o filho direito do auxiliar recebe o filho esquerdo do raiz
+// o auxiliar se torna o novo filho esquerdo do raiz
+void rotacionar_esq(S_TREE **raiz)
+{
+   assert(raiz);
+   
+   S_TREE * auxNo = *raiz;
+   *raiz = (*raiz)->dir;
+   auxNo->dir = (*raiz)->esq;
+   (*raiz)->esq = auxNo;
+}
+

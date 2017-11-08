@@ -18,6 +18,5 @@ S_TREE * remover_no(S_TREE **raiz, int chave);
 void rotacionar_dir(S_TREE **raiz);
 
 void rotacionar_esq(S_TREE **raiz);
-
  
 #endif
