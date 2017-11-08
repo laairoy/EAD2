@@ -21,6 +21,19 @@ S_TREE * buscar_no(S_TREE **raiz, int chave);
 
 S_TREE * remover_no(S_TREE **raiz, int chave);
 
-void rotacionar_dir(S_TREE **raiz);
+// o procedimento verifica se a raiz e valida
+// o auxiliar recebe o raiz
+// o filho esquerdo se torna o novo raiz
+// o filho esquerdo do auxiliar recebe o filho direito do raiz
+// o auxiliar se torna o novo filho direito do raiz
+void rotacionar_dir(S_TREE **raiz)
+{
+   assert(raiz);
+   
+   S_TREE * auxNo = *raiz;
+   *raiz = (*raiz)->esq;
+   auxNo->esq = (*raiz)->dir;
+   (*raiz)->dir = auxNo;
+}
 
 void rotacionar_esq(S_TREE **raiz);
