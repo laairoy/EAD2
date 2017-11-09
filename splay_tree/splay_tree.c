@@ -34,7 +34,7 @@ S_TREE * inserir(S_TREE *esq, S_TREE **raiz, S_TREE *dir, int chave)
       (*raiz)->esq = NULL;
 
       if(dir) 
-         rotacionar_dir(&dir, *raiz);
+         rotacionar_dir(&dir, *raiz);  
       else
          dir = *raiz;
 
@@ -87,8 +87,63 @@ S_TREE * inserir(S_TREE *esq, S_TREE **raiz, S_TREE *dir, int chave)
    }
    return *raiz;
 }*/
+/*
+S_TREE * buscar_no(S_TREE **raiz, int chave)
+{ 
+   //caso base: arvore vazia ou se a raiz é a chave
+   if((*raiz) == NULL || (*raiz)->chave == chave)
+      return (*raiz);
 
-S_TREE * buscar_no(S_TREE **raiz, int chave);
+   //verificamos se a chave está na subarvore esquerda
+   if((*raiz)->chave > chave){
+      //chave não está na árvore
+      if((*raiz)->esq == NULL)
+         return (*raiz);
+
+      //zig-zig - esquerda-esquerda
+      if((*raiz)->esq->chave > chave){
+         //primeiro trazemos a chave como raiz de esquerda-esquerda
+         (*raiz)->esq->esq = buscar_no(&((*raiz)->esq->esq), chave)
+
+         //realiza a primeira rotação, segunda rotação é feita depois
+         (*raiz) = rotacionar_dir(&((*raiz)->esq->esq), *raiz)
+      }
+      else if((*raiz)->chave < chave){
+         //primeiro, trazemos a chave para a raiz da esquerda/direita
+         (*raiz)->esq->dir = buscar_no(&((*raiz)->esq->dir), chave);
+
+         //realiza primeira rotação para raiz->esq
+         if((*raiz)->esq->dir != NULL)
+            (*raiz)->esq = rotacionar_esq(&((*raiz)->esq), *raiz);
+      }
+      //chave está na subarvore direita
+      else{
+         //chave não está na arvore, retorna
+         if((*raiz)->dir == NULL)
+            return (*raiz);
+
+         //zag-zig - direita-esquerda
+         if((*raiz)->dir->chave > chave){
+            //trazemos a chave como raiz de direita-esquerda
+            (*raiz)->dir->esq = buscar_no(&((*raiz)->dir->esq), chave);
+
+            //primeira rotação para raiz->dir
+            if((*raiz)->dir->esq != NULL)
+               (*raiz)->dir = rotacionar_dir(&((*raiz)->dir), *raiz);
+         }
+         else if((*raiz)->dir->chave < chave){ //zag-zag - direita-direita
+            //traz a chave como raiz de direita-direita e faz a primeira rotação
+            (*raiz)->dir->dir = buscar_no(&((*raiz)->dir->dir), *raiz);
+            *raiz = rotacionar_esq(&((*raiz)->dir->dir), *raiz);
+         }
+         //realiza segunda rotação para raiz
+         return((*raiz)->dir == NULL)? (*raiz): rotacionar_esq(&((*raiz)->dir), *raiz);
+      }
+   }
+}
+*/
+// primeiro realizar splay no nó x
+// logo após compara-se a raíz ao nó x
 
 S_TREE * remover_no(S_TREE **raiz, int chave);
 
