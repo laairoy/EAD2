@@ -16,18 +16,20 @@ int main()
    inserir(&raiz, 7);
    my_print(raiz);
    
-   inserir(&raiz, 8);
+   inserir(&raiz, 5);
    my_print(raiz);
    
-   inserir(&raiz, 23);
+   inserir(&raiz, 1);
    my_print(raiz);
-   
-   inserir(&raiz, 21);
+
+   inserir(&raiz, 6);
    my_print(raiz);
-   inserir(&raiz, 10);
+
+   inserir(&raiz, 7);
    my_print(raiz);
-   inserir(&raiz, 24);
-   my_print(raiz);
+
+   print_emOrdem(raiz);
+
 
    return 0;
 }
