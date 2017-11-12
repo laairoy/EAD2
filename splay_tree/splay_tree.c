@@ -80,19 +80,72 @@ S_TREE *splay_TD(S_TREE **raiz, int chave)
 
    if(chave < (*raiz)->chave)
    {
-      if((*raiz)->esq == NULL) return *raiz;
-      if(chave <= (*raiz)->esq->chave) rotacionar_dir(raiz);
-      else return *raiz;
+      if((*raiz)->esq == NULL || chave == (*raiz)->esq->chave) 
+         return *raiz;
+
+      if(chave < (*raiz)->esq->chave)
+      {
+
+         if((*raiz)->esq->esq)
+         { 
+            rotacionar_dir(&((*raiz)->esq));
+            rotacionar_dir(raiz);
+         }
+         else
+         {
+            rotacionar_dir(raiz);
+            return *raiz;
+         } 
+      }
+      else
+      {
+         if((*raiz)->esq->dir)
+         {
+            rotacionar_esq(&((*raiz)->esq));
+            rotacionar_dir(raiz);
+            
+         }
+         else
+         {
+            rotacionar_dir(raiz);
+            return *raiz;
+         }
+      }
 
       splay_TD(raiz, chave);
-
    }
    else if(chave > (*raiz)->chave)
    {
-      if((*raiz)->dir == NULL) return *raiz;
-      if(chave >= (*raiz)->dir->chave) rotacionar_esq(raiz);
-      else return *raiz;
+      if((*raiz)->dir == NULL || chave == (*raiz)->dir->chave) 
+         return *raiz;
 
+      if(chave > (*raiz)->dir->chave)
+      {
+         if((*raiz)->dir->dir)
+         {
+            rotacionar_esq(&((*raiz)->dir));
+            rotacionar_esq(raiz);
+         }
+         else
+         {
+            rotacionar_esq(raiz);
+            return *raiz;
+         }
+      }
+      else
+      {
+         if((*raiz)->dir->esq)
+         {
+            rotacionar_dir(&((*raiz)->dir));
+            rotacionar_esq(raiz);
+         }
+         else
+         {
+            rotacionar_esq(raiz);
+            return *raiz;
+         }
+      }
+      
       splay_TD(raiz, chave);
    }
   return *raiz;

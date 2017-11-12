@@ -13,21 +13,22 @@ void my_print(S_TREE *raiz)
 int main()
 {
    S_TREE *raiz = NULL;
-   inserir(&raiz, 7);
-   my_print(raiz);
-   
    inserir(&raiz, 5);
    my_print(raiz);
    
-   inserir(&raiz, 1);
-   my_print(raiz);
-
    inserir(&raiz, 6);
    my_print(raiz);
-
-   inserir(&raiz, 7);
+   
+   inserir(&raiz, 20);
    my_print(raiz);
 
+   inserir(&raiz, 15);
+   my_print(raiz);
+
+   inserir(&raiz, 23);
+   buscar_no(&raiz, 7);
+   my_print(raiz);
+   
    print_emOrdem(raiz);
 
 
