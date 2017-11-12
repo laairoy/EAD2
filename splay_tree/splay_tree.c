@@ -194,14 +194,57 @@ S_TREE * buscar_no(S_TREE **raiz, int chave)
    return NULL;
 }
 
-
-S_TREE * remover_no(S_TREE **raiz, int chave);
-
 // o procedimento verifica se a raiz e valida
 // o auxiliar recebe o raiz
 // o filho esquerdo se torna o novo raiz
 // o filho esquerdo do auxiliar recebe o filho direito do raiz
 // o auxiliar se torna o novo filho direito do raiz
+S_TREE * remover_no(S_TREE **raiz, int chave)
+{
+   S_TREE *aux;
+
+   if(!(*raiz)) return NULL;
+
+   *raiz = splay_BU(raiz, chave);
+
+   //se a chave não está presente na árvore
+   //então, retornamos a raiz
+   if((*raiz)->chave != chave);
+      return *raiz;
+
+   //se a chave está presente na árvore
+   //se o filho esquerdo da raiz é null
+   //raiz->dir torna-se raiz
+   if(!((*raiz)->esq))
+   {
+      aux = *raiz;
+      *raiz = (*raiz)->dir;
+   }
+
+   //se o filho esquedo existe
+   else
+   {
+      aux = *raiz;
+      /* desde que (*raiz)->chave == chave
+         então depois de realizarmos splay da chave passada
+         a árvore não passará a ter filhos direitos na sub-arvore direita
+         e o valor maximo na sub-arvore esquerda realizará splay
+         ou seja, nova raiz*/
+      *raiz = splay_BU((*raiz)->esq, chave);
+
+      //torne filho direito da antiga raiz
+      //como nova raiz do filho direito
+      (*raiz)->dir = aux->dir;
+   }
+
+   //free na antiga raiz
+   //que é o nó que continha a chave passada
+   free(aux);
+
+   //retorna nova raiz que foi feito splay
+   return *raiz;
+}
+
 void rotacionar_dir(S_TREE **raiz)
 {
    assert(raiz);
