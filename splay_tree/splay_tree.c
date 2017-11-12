@@ -80,7 +80,7 @@ S_TREE *splay_TD(S_TREE **raiz, int chave)
 
    if(chave < (*raiz)->chave)
    {
-      if((*raiz)->esq == NULL || chave == (*raiz)->esq->chave) 
+      if((*raiz)->esq == NULL || chave == (*raiz)->chave) 
          return *raiz;
 
       if(chave < (*raiz)->esq->chave)
@@ -159,7 +159,7 @@ S_TREE * inserir(S_TREE **raiz, int chave)
       return *raiz;
    } 
    
-   splay_TD(raiz, chave);
+   splay_BU(raiz, chave);
 
    if((*raiz)->chave == chave) return *raiz;
    
@@ -185,9 +185,7 @@ S_TREE * inserir(S_TREE **raiz, int chave)
 
 S_TREE * buscar_no(S_TREE **raiz, int chave)
 {
-   if(!(*raiz)) return NULL;
-
-   splay_TD(raiz, chave);
+   splay_BU(raiz, chave);
 
    if((*raiz)->chave == chave) return *raiz;
 
@@ -205,11 +203,11 @@ S_TREE * remover_no(S_TREE **raiz, int chave)
 
    if(!(*raiz)) return NULL;
 
-   *raiz = splay_BU(raiz, chave);
+   splay_BU(raiz, chave);
 
    //se a chave não está presente na árvore
    //então, retornamos a raiz
-   if((*raiz)->chave != chave);
+   if((*raiz)->chave != chave)
       return *raiz;
 
    //se a chave está presente na árvore
@@ -230,8 +228,8 @@ S_TREE * remover_no(S_TREE **raiz, int chave)
          a árvore não passará a ter filhos direitos na sub-arvore direita
          e o valor maximo na sub-arvore esquerda realizará splay
          ou seja, nova raiz*/
-      *raiz = splay_BU((*raiz)->esq, chave);
-
+      splay_BU(&((*raiz)->esq), chave);
+      *raiz = (*raiz)->esq;
       //torne filho direito da antiga raiz
       //como nova raiz do filho direito
       (*raiz)->dir = aux->dir;

@@ -26,9 +26,12 @@ int main()
    my_print(raiz);
 
    inserir(&raiz, 23);
-   buscar_no(&raiz, 7);
+   buscar_no(&raiz, 6);
    my_print(raiz);
    
+   remover_no(&raiz, 6);
+   my_print(raiz);
+
    print_emOrdem(raiz);
 
 
