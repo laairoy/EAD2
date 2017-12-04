@@ -1,17 +1,14 @@
 #ifndef HUFF_H
 #define HUFF_H
 
-typedef struct huff
-{
-	int freq;
-	char letra;
-	struct huff *prox, *dir, *esq;
-};
+#include "heap.h"
 
-HUFF * criar_freq_lista(char str[], int tamanho);
+typedef HM HUFF;
 
-void existe_na_lista(char letra);
+HUFF * criar_freq_lista(char str[], int *tam);
 
-void add_no_lista(HUFF **huff, HUFF *node);
+HUFF * gerar_arvore_huff(char str[], int *tam);
 
-void gerar_arvore_huff(HUFF *huff);
+void travessia(HUFF *raiz);
+
+#endif

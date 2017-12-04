@@ -15,13 +15,15 @@ HM extrair_min(HM *heap, int *tam)
   return extrai;
 }
 
-void insere(HM *heap, int *tam, int pri, int chave)
+void insere(HM *heap, int *tam, HM item)
 {
   int i, indice;
   indice = *tam;
 
-  heap[*tam].chave = chave;
-  heap[(*tam)++].pri = pri;
+  heap[*tam].chave = item.chave;
+  heap[*tam].pri = item.pri;
+  heap[*tam].dir = item.dir;
+  heap[(*tam)++].esq = item.esq;
 
   do
   {
@@ -71,15 +73,15 @@ int heapify(HM *heap, int tam, int indice)
 
   if(dir <= tam-1)
   {
-    int indice_maior = (heap[esq].pri > heap[dir].pri) ? esq : dir;
+    int indice_menor = (heap[esq].pri < heap[dir].pri) ? esq : dir;
 
-    if(heap[indice].pri < heap[indice_maior].pri)
-      return troca_item(heap, indice, indice_maior);
+    if(heap[indice].pri > heap[indice_menor].pri)
+      return troca_item(heap, indice, indice_menor);
 
   }
   else if(esq <= tam-1)
   {
-    if(heap[indice].pri < heap[esq].pri)
+    if(heap[indice].pri > heap[esq].pri)
       return troca_item(heap, indice, esq);
 
   }
