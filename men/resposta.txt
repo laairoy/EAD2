@@ -1,0 +1,75 @@
+0.1 Qual a diferença entre uma mídia de armazenamento que suporta acesso aleatório para uma que suporta acesso sequencial?
+    Dê ao menos um exemplo de cada.
+
+    a memoria pode ser acessada se tivermos seu endereco, nao precisamos acessar os antecessores
+
+0.2 Explique por que um HD magnético pode ser considerado de acesso aleatório. Justifique utilizando a terminologia
+    de trilhas e setores.
+
+    Pois podemos acessar cada setor, sem precisar acessar seu antecessor.
+
+0.3 O que significa o seguinte trecho dado na saída do comando fdisk do GNU/Linux?
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+
+    o SO faz a leitura em 8 blocos, 512 era a unidade adotada pelo linux em hds antigos.
+    em hds mas recentes o setor é maior, 4096 bytes.
+
+
+1. Qual o principal item de desempenho para programação em memória externa? Justifique.
+
+    quantidades de acesso ao disco, pois é uma memoria mais lenta.
+
+2. Apresente um algoritmo em C para realizar uma busca sequencial externa. Assuma as seguintes suposições:
+
+i) Um único Bloco de disco sempre contêm 4 registros do tipo 'struct registro' (abaixo definida)
+  /*
+   * Registro de 1 KiB i.e. 1024 bytes
+   */
+   #define BYTES_CAMPOS 1016
+   struct registro
+   {
+     unsigned long chave;//Valor da Chave: 8 bytes
+     unsigned char outros[BYTES_CAMPOS];//outros campos: 1016 bytes (dados)
+   };
+
+ii) A função tem o seguinte protótipo TipoEnderecoExterno buscaExterna(unsigned long chave, char nomeArq[], char modoArq[])
+   onde:
+   chave: valor chave a ser buscado
+   nomeArq : string contendo caminho completo e nome do arquivo binário a ser aberto
+   modoArq : modo do arquivo (assumir "rb", binário somente-leitura )
+   TipoEnderecoExterno: Tipo a ser devolvido contendo o endereço do bloco no arquivo e do registro no bloco:
+      typedef struct TipoEnderecoExterno
+      {
+         unsigned long int i; //indice do bloco em que um registro se encontra num arquivo
+         int j; //indice do registro dentro do i-th bloco do arquivo
+      } TipoEnderecoExterno;
+
+3. Que cuidados deveríamos na questão 2 se, após a execução da função de leitura, não fosse possível
+   garantir a suposição i, isto é, se o total de itens lidos for menor do que o total esperado?
+   Justifique E apresente um trecho(s) de código que trata a situação.
+
+4. Apresente uma função em C que conta quantos blocos um dado arquivo tem (assuma as structs da questão 1).
+   Como entrada são dados o nome e o modo de abertura do arquivo e como saída o total
+   de blocos. Assuma que todo bloco está com capacidade máxima.
+   Apresente outras suposições se necessário for.
+
+5. Apresente uma função eficiente em C que conta quantos registros há em um dado arquivo (assuma as structs da questão 1).
+   Como entrada são dados o nome e o modo de abertura do arquivo e saída o total
+   de registros. CONSIDERE que nem todo bloco contêm o máximo de registros possíveis.
+   Por exemplo, se o arquivo só tem 2 blocos sendo o bloco n. 0 com 2 registros e o bloco número 1 com apenas 1 registro,
+   o total é 3. Como na questão 1, o total de registros por bloco é 4.
+   Apresente outras suposições se necessário for.
+
+6. Explique como funciona as seguintes funções:
+   fread
+   fwrite
+   fseek
+
+
+7. Apresente uma função eficiente em C que recebe o nome, o modo de abertura, um número representando o endereço de
+   um bloco no arquivo e um vetor com R registros (assumindo as structs da questão 1, R<=4 registros por bloco, no máximo).
+   Sua função deve abrir o arquivo e gravar o vetor de registros dado dentro do arquivo no bloco cujo número foi dado.
+   Devolva a quantidade de registros gravados com sucesso no disco. Assuma que os blocos atualmente presentes no disco
+   estão com a capacidade máxima ocupada. DICA: Use fseek para explorar a característica de acesso aleatório do HD.
+   Apresente outras suposições se necessário for.
